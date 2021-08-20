@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:59:17 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/13 18:41:33 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/20 17:18:44 by byeongguk        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,7 @@ int	sprite(t_mlx *mlxs)
 
 int	ft_close(t_mlx *mlxs)
 {
+	(void)mlxs;
 	exit(0);
 }
 
@@ -387,6 +388,12 @@ int	file_linecount(char *file)
 	return (linecount);
 }
 
+void	print_error(char *str)
+{
+	printf("%s", str);
+	exit(1);
+}
+
 char	**alloc_columns(t_mlx *mlxs, char *file)
 {
 	char	**map;
@@ -402,15 +409,48 @@ char	**alloc_columns(t_mlx *mlxs, char *file)
 	return (map);
 }
 
-int	check_map(t_mlx *mlxs, char *file)
+int	check_file_name(char *file)
 {
-	char	**map;
+	int	i;
+
+	i = 0;
+	while (file[i])
+		i++;
+	if (i < 5)
+		return (0);
+	if (file[--i] == 'r')
+	{
+		if (file[--i] == 'e')
+		{
+			if (file[--i] == 'b')
+			{
+				if (file[--i] == '.')
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int	is_valid_file(int argc, char *file)
+{
+	if (argc != 2)
+		return (0);
+	else if (!check_file_name(file))
+		return (0);
+	return (1);
+}
+
+void	load_map(t_mlx *mlxs, int argc, char *file)
+{
 	int		fd;
 	int		i;
 
+	if (!is_valid_file(argc, file))
+		print_error("Not valid file\n");
 	mlxs->map = alloc_columns(mlxs, file);
-	if (map == 0)
-		return (0);
+	if (mlxs->map == 0)
+		print_error("Not valid map\n");
 	fd = open(file, O_RDONLY);
 	i = 0;
 	while (get_next_line(fd, &mlxs->map[i++]))
@@ -418,13 +458,66 @@ int	check_map(t_mlx *mlxs, char *file)
 	mlxs->map_width = ft_strlen(mlxs->map[0]);
 	mlxs->map[i] = 0;
 	close(fd);
-	return (1);
 }
 
-void	initialize(t_mlx *mlxs, int argc, char *file_name)
+int	is_valid_char(char c)
 {
-	if (!check_map(mlxs, file_name))
-		exit(1);
+	if (c == '1' || c == '0' || c == 'C' || c == 'E' || c == 'P')
+		return (1);
+	return (0);
+}
+
+void	check_char_wall(t_mlx *mlxs, int i, int j)
+{
+	if (!is_valid_char(mlxs->map[i][j]))
+		print_error("Map must be composed of only '0', '1', 'C', 'E', 'P'\n");
+	if (i == 0 || i == mlxs->map_height - 1
+		|| j == 0 || j == mlxs->map_width - 1)
+	{
+		if (mlxs->map[i][j] != '1')
+			print_error("Map is not surrounded by wall.\n");
+	}
+}
+
+void	check_essential(t_mlx *mlxs, int i, int j, int *essential)
+{
+	if (mlxs->map[i][j] == 'C')
+		*essential |= 1;
+	else if (mlxs->map[i][j] == 'P')
+		*essential |= 2;
+	else if (mlxs->map[i][j] == 'E')
+		*essential |= 4;
+}
+
+void	check_map(t_mlx *mlxs)
+{
+	int	i;
+	int	j;
+	int	essential;
+
+	i = 0;
+	essential = 0;
+	while (i < mlxs->map_height)
+	{
+		j = 0;
+		if ((int)ft_strlen(mlxs->map[i]) != mlxs->map_width)
+			print_error("Not a square map.\n");
+		while (j < mlxs->map_width)
+		{
+			check_char_wall(mlxs, i, j);
+			check_essential(mlxs, i, j, &essential);
+			j++;
+		}
+		i++;
+	}
+	if (essential != 7)
+		print_error("Map must have at least 1 'C', 'P', 'E'\n");
+}
+
+void	initialize(t_mlx *mlxs, int argc, char *file)
+{
+	load_map(mlxs, argc, file);
+	check_map(mlxs);
 	mlxs->mlx = mlx_init();
 	mlxs->movement = 0;
 	mlxs->win = mlx_new_window(mlxs->mlx,

@@ -23,6 +23,8 @@ void	initialize(t_mlx *mlxs, int argc, char *file)
 	mlxs->start = 0;
 	mlxs->coins = 0;
 	load_images(mlxs, 0, 0);
+	mlxs->enemy.x = -1;
+	mlxs->enemy.y = -1;
 	draw_map(mlxs);
 }
 

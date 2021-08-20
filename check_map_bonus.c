@@ -50,6 +50,13 @@ void	check_essential(t_mlx *mlxs, int i, int j, int *essential)
 		*essential |= 2;
 	else if (mlxs->map[i][j] == 'E')
 		*essential |= 4;
+	else if (mlxs->map[i][j] == 'Z')
+	{
+		if (*essential & 8)
+			print_error("Maximum enemy number is 1.\n");
+		else
+			*essential |= 8;
+	}
 }
 
 void	check_map(t_mlx *mlxs)
@@ -73,6 +80,7 @@ void	check_map(t_mlx *mlxs)
 		}
 		i++;
 	}
+	essential &= ~8;
 	if (essential != 7)
 		print_error("Map must have at least 1 'C', 'P', 'E'\n");
 }

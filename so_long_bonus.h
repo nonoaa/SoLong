@@ -104,7 +104,7 @@ void	check_map(t_mlx *mlxs);
 void	initialize(t_mlx *mlxs, int argc, char *file);
 int		ft_strlen(char *str);
 int		ft_strcat(char **str, char c);
+char	*ft_itoa(int n);
 int		get_next_line(int fd, char **line);
-
 
 #endif

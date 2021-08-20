@@ -14,7 +14,8 @@
 
 int	is_block_enemy(t_mlx *mlxs, int x, int y)
 {
-	if (mlxs->map[y][x] == '1' || mlxs->map[y][x] == 'E' || mlxs->map[y][x] == 'C')
+	if (mlxs->map[y][x] == '1'
+		|| mlxs->map[y][x] == 'E' || mlxs->map[y][x] == 'C')
 		return (1);
 	return (0);
 }

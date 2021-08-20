@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:34:50 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/21 00:13:29 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/21 01:07:20 by byahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	move_player(t_mlx *mlxs, int keycode)
 			mlxs->player.x += 1;
 		mlxs->map[mlxs->player.y][mlxs->player.x] = 'P';
 		(mlxs->movement++);
-		printf("Movement:%d\n", mlxs->movement);
 	}
 	draw_player(mlxs, mlxs->player.x, mlxs->player.y, keycode);
+	mlx_string_put(mlxs->mlx, mlxs->win, mlxs->player.x * 100 + 10,
+		mlxs->player.y * 100 + 10, 0x2ECC71, ft_itoa(mlxs->movement));
 }
 
 void	move_enemy(t_mlx *mlxs)
@@ -60,7 +61,6 @@ void	move_enemy(t_mlx *mlxs)
 	}
 	draw_enemy(mlxs, mlxs->enemy.x, mlxs->enemy.y);
 }
-
 
 int	deal_key(int keycode, t_mlx *mlxs)
 {

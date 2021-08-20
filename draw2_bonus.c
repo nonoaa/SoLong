@@ -75,6 +75,8 @@ void	draw_map(t_mlx *mlxs)
 	if (mlxs->start == 0)
 	{
 		draw_player(mlxs, mlxs->player.x, mlxs->player.y, KEY_D);
+		mlx_string_put(mlxs->mlx, mlxs->win, mlxs->player.x,
+			mlxs->player.y, 0xFFFFFF, ft_itoa(mlxs->movement));
 		draw_enemy(mlxs, mlxs->enemy.x, mlxs->enemy.y);
 	}
 	mlxs->start = 1;

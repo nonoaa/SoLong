@@ -32,7 +32,8 @@ int	is_valid_char(char c)
 void	check_char_wall(t_mlx *mlxs, int i, int j)
 {
 	if (!is_valid_char(mlxs->map[i][j]))
-		print_error("Map must be composed of only '0', '1', 'C', 'E', 'P', 'Z'\n");
+		print_error(
+			"Map must be composed of only '0', '1', 'C', 'E', 'P', 'Z'\n");
 	if (i == 0 || i == mlxs->map_height - 1
 		|| j == 0 || j == mlxs->map_width - 1)
 	{

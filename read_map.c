@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:38:32 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/20 21:39:17 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/20 23:27:18 by byahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	load_map(t_mlx *mlxs, int argc, char *file)
 		print_error("Not valid map\n");
 	fd = open(file, O_RDONLY);
 	i = 0;
-	while (get_next_line(fd, &mlxs->map[i++]))
-		;
+	while (get_next_line(fd, &mlxs->map[i]))
+		i++;
 	mlxs->map_width = ft_strlen(mlxs->map[0]);
 	mlxs->map[i] = 0;
 	close(fd);

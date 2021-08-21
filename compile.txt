@@ -1,4 +1,0 @@
-gcc -Wall -Wextra -Werror -Lmlx -Imlx -lmlx -lz -framework OpenGL -framework AppKit main.c
-gcc -Lmlx -Imlx -lmlx -lz -framework OpenGL -framework AppKit main.c get_next_line.c get_next_line_utils.c
-
-"type": "module", 

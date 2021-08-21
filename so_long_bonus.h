@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:59:50 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/21 00:18:47 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/22 00:20:50 by byahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int		ft_strlen(char *str);
 int		ft_strcat(char **str, char c);
 char	*ft_itoa(int n);
 int		get_next_line(int fd, char **line);
+void	print_movement(t_mlx *mlxs);
 
 #endif

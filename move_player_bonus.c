@@ -6,11 +6,21 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:34:50 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/21 01:07:20 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/22 00:22:35 by byahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	print_movement(t_mlx *mlxs)
+{
+	char	*itoa;
+
+	itoa = ft_itoa(mlxs->movement);
+	mlx_string_put(mlxs->mlx, mlxs->win, mlxs->player.x * 100 + 10,
+		mlxs->player.y * 100 + 10, 0x2ECC71, itoa);
+	free(itoa);
+}
 
 void	move_player(t_mlx *mlxs, int keycode)
 {
@@ -34,8 +44,7 @@ void	move_player(t_mlx *mlxs, int keycode)
 		(mlxs->movement++);
 	}
 	draw_player(mlxs, mlxs->player.x, mlxs->player.y, keycode);
-	mlx_string_put(mlxs->mlx, mlxs->win, mlxs->player.x * 100 + 10,
-		mlxs->player.y * 100 + 10, 0x2ECC71, ft_itoa(mlxs->movement));
+	print_movement(mlxs);
 }
 
 void	move_enemy(t_mlx *mlxs)

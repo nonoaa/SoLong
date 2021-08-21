@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:36:39 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/21 01:33:35 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/22 00:25:34 by byahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	draw_tiles(t_mlx *mlxs, int i, int j)
 
 void	draw_map(t_mlx *mlxs)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (i < mlxs->map_height)
@@ -75,9 +75,8 @@ void	draw_map(t_mlx *mlxs)
 	if (mlxs->start == 0)
 	{
 		draw_player(mlxs, mlxs->player.x, mlxs->player.y, KEY_D);
-		mlx_string_put(mlxs->mlx, mlxs->win, mlxs->player.x * 100 + 10,
-			mlxs->player.y * 100 + 10, 0x2ECC71, ft_itoa(mlxs->movement));
 		draw_enemy(mlxs, mlxs->enemy.x, mlxs->enemy.y);
+		print_movement(mlxs);
 	}
 	mlxs->start = 1;
 }

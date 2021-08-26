@@ -6,7 +6,7 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:34:50 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/22 00:22:35 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/26 17:52:40 by byeongguk        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,18 @@ void	print_movement(t_mlx *mlxs)
 	free(itoa);
 }
 
+void	print_end(char *str)
+{
+	printf("%s", str);
+	exit(0);
+}
+
 void	move_player(t_mlx *mlxs, int keycode)
 {
-	if (check_end(keycode, mlxs) || check_enemy(keycode, mlxs))
-		exit(0);
+	if (check_end(keycode, mlxs))
+		print_end("success!\n");
+	if (check_enemy(keycode, mlxs))
+		print_end("you lose.\n");
 	if (check_coin(keycode, mlxs))
 		(mlxs->coins)--;
 	if (!(check_wall(keycode, mlxs)))

@@ -6,16 +6,22 @@
 /*   By: byahn <byahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 21:34:50 by byahn             #+#    #+#             */
-/*   Updated: 2021/08/20 21:35:15 by byahn            ###   ########.fr       */
+/*   Updated: 2021/08/26 17:53:30 by byeongguk        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	print_end(char *str)
+{
+	printf("%s", str);
+	exit(0);
+}
+
 void	move_player(t_mlx *mlxs, int keycode)
 {
 	if (check_end(keycode, mlxs))
-		exit(0);
+		print_end("success!\n");
 	if (check_coin(keycode, mlxs))
 		(mlxs->coins)--;
 	if (!(check_wall(keycode, mlxs)))
